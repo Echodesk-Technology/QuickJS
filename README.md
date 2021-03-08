@@ -36,7 +36,7 @@ Made with <g-emoji class="g-emoji" alias="heart" fallback-src="https://github.gi
 
 # Documentation
 
-**Visit quickjs.org for docs and live examples.**
+**Visit <a href="https://quickjs.org">quickjs.org</a> for docs**
 
 # Contribution
 
