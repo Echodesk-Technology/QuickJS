@@ -1,0 +1,19 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "esnext",
+        "watch": true,
+        "strict": true,
+        "outDir": "frontend/public/js",
+        "noImplicitAny": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "frontend/public/js"
+            ]
+        },
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
