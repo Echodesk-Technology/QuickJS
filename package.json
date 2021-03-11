@@ -1,11 +1,12 @@
 {
   "name": "quickjs",
   "version": "1.0.0",
-  "description": "",
+  "description": "<br />\r <p align=\"center\">\r   <a href=\"https://echodesktechnology.com\">\r     <img src=\"https://res.cloudinary.com/serveryguken/image/upload/v1615188992/QuickJS/logo/quickjs-logo_wjx3dw.svg\" width=\"400\" height=\"200\"> \r   </a>\r </p>",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "webpack"
+    "build": "webpack",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -26,5 +27,13 @@
     "webpack": "^5.24.3",
     "webpack-cli": "^4.5.0",
     "webpack-obfuscator": "^3.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Echodesk-Technology/QuickJS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Echodesk-Technology/QuickJS/issues"
+  },
+  "homepage": "https://github.com/Echodesk-Technology/QuickJS#readme"
 }

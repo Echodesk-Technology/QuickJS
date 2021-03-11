@@ -4,10 +4,6 @@ declare global {
 import Quick from '../instance/quick'
 import QuickError from '../utils/quick-error';
 
-export function navigate(url?) {
-    history.pushState(null, null, url);
-    QuickRouter.prototype.useRoute(window.routes);
-};
 
 export class QuickRouter {
     async useRoute(routes?: any, url?: any) {
@@ -29,7 +25,8 @@ export class QuickRouter {
                 isMatch: true
             };
         }
-        console.log(findMatch.route.view());
+        const view = new findMatch.route.view();
+        Quick.view(await view.render());
         return routes
     };
     getRoute(callback: Function) {
@@ -50,20 +47,29 @@ export class QuickRouter {
             from
         }
     };
+    createNavigation(routes: any) {
+        window.addEventListener("click", (e: any) => {
+            e.preventDefault();
+            if (e.target.localName === "a") {
+                history.pushState(null, null, e.target.href);
+                QuickRouter.prototype.useRoute(routes)
+            }
+        })
+    }
 };
 
 
 
-function setRoute() {
-    document.body.addEventListener("click", (e: any) => {
-        e.preventDefault()
-        if (e.target.localName === "a") {
-           navigate(e.target.href)
-        }
-    });
+
+
+
+export function createPopState(routes) {
+    window.addEventListener("popstate", () => {
+        QuickRouter.prototype.useRoute(routes)
+    })
 }
 
-Quick.use(setRoute())
+
 
 export class QuickRouterLink extends HTMLElement {
     constructor() {
@@ -75,7 +81,13 @@ export class QuickRouterLink extends HTMLElement {
         if (this.getAttribute("ref")) {
             link.id = this.getAttribute("ref");
         }
-        document.getElementById("app")?.insertBefore(link, this);
+        if (this.getAttribute("id")) {
+            link.id = this.getAttribute("id");
+        }
+        if(this.getAttribute("download")) {
+            link.download = this.getAttribute("download")
+        }
+        this.parentNode?.insertBefore(link, this);
         const children = Array.prototype.slice.call(this.children);
         if (this.innerHTML === "") {
             link.innerText = this.getAttribute("name")

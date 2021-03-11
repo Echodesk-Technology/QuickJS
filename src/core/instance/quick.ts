@@ -14,74 +14,35 @@ class Dep {
         if (activeEffect) this.subscribers.add(activeEffect)
     }
     notify() {
-        this.subscribers.forEach((sub: any| void) => {
+        this.subscribers.forEach((sub: any | void) => {
             sub()
         })
     }
 }
 
 class Quick {
-    reactive(obj) {
-        Object.keys(obj).forEach((key) => {
-            const dep = new Dep()
-            let value = obj[key]
-            Object.defineProperty(obj, key, {
-                get() {
-                    dep.depend()
-                    return value
-                },
-                set(newValue) {
-                    if (newValue !== value) {
-                        value = newValue
-                        dep.notify()
-                    }
-                },
-            })
-        })
-        return obj
-    }
-    // component(comp: any | void) {
-    //     if(!comp) {
-    //         new QuickError("component not defined");
-    //         return false
-    //     }
-    //     if(comp.name=== "root" && !comp.selector) {
-    //         new QuickError("Cannot read property 'selector' of undefined");
-    //     }
-    //         let elem;
-    //         if(comp.name === "root") {
-    //             elem = document.getElementById(comp.selector);
-    //         }
-    //         else {
-    //             elem = document.getElementById("app");
-    //         }
-    //         const data = comp.data;
-    //         const methods = comp.methods
-    //         const methodsArray = Array(methods).slice();
-    //         methodsArray.forEach((method: void) => {
-    //             this.use(method)
-    //             return method
-    //         })
-    //         const template = comp.template;
-    //         return comp
-    // }
-    // render(component: any| void) {
+    init(comp: any | void,name: any) {
+        console.log(comp.prototype,name);
         
-    //     if(!component) {
-    //         new QuickError("component not defined");
-    //         return false
-    //     }
-    //     if(!component.selector) {
-    //         new QuickError("Cannot read property 'selector' of undefined");
-    //     }
-    //     if(component.name === "root") {
-    //         document.getElementById(component.selector).innerHTML = component.template(component.data,component.methods);
-    //     }
-    // }
+        
+        const s1 = document.getElementsByTagName("script")
+        const s = document.createElement("script")
+        s.type = "text/javascript"
+        const m = comp.toString().split(";")
+        console.log(m);
+        s.text = `${comp}\n${name}()`
+        document.body.appendChild(s);
+        window.onload = function () {
+            `${comp}\n${name}()`
+        }
+    }
     use(func: any) {
         document.addEventListener("DOMContentLoaded", () => {
-            func;
+            func
         })
+    }
+    view(view: any) {
+        document.querySelector("#app").innerHTML = view
     }
 }
 
