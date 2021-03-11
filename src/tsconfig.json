@@ -1,0 +1,19 @@
+// {
+//     "compileOnSave": true,
+//     "compilerOptions": {
+//         "target": "esnext",
+//         "watch": true,
+//         "strict": true,
+//         "outDir": "core/dist",
+//         "noImplicitAny": true,
+//         "baseUrl": ".",
+//         "paths": {
+//             "@/*": [
+//                 "src/core"
+//             ]
+//         },
+//     },
+//     "exclude": [
+//         "node_modules"
+//     ]
+// }

@@ -8,6 +8,14 @@ module.exports =   routes = [
         view: () => console.log("About View")
     },
     {
+        path: '/features',
+        view: () => console.log("Features View")
+    },
+    {
+        path: '/services',
+        view: () => console.log("Services View")
+    },
+    {
         path: '/contact',
         view: () => console.log("Contact View")
     },

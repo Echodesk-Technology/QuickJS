@@ -1,5 +1,16 @@
+import Quick from '../instance/quick';
+import QuickError from '../utils/quick-error';
+export function navigate(url) {
+    history.pushState(null, null, url);
+    QuickRouter.prototype.useRoute(window.routes);
+}
+;
 export class QuickRouter {
-    useRoute(routes) {
+    async useRoute(routes, url) {
+        if (routes.length === 0) {
+            new QuickError("routes cannot be empty");
+            return false;
+        }
         // Check if route matches URL
         const matches = routes.map((route) => {
             return {
@@ -18,45 +29,60 @@ export class QuickRouter {
         return routes;
     }
     ;
-    getRoute() {
-        console.log(location);
-        const route = [
-            {
-                fullPath: location.href,
-                pathname: location.pathname,
-                params: location.pathname.split('/')[2]
-            }
-        ];
-        return route;
+    getRoute(callback) {
+        const from = document.referrer;
+        const to = location.href;
+        const next = Function;
+        callback(to, from, next);
+        // const route = [
+        //     {
+        //         fullPath:  location.href,
+        //         pathname:  location.pathname,
+        //         params: location.pathname.split('/')[2]
+        //     }
+        // ]
+        return {
+            to,
+            from
+        };
     }
+    ;
 }
 ;
+function setRoute() {
+    document.body.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (e.target.localName === "a") {
+            navigate(e.target.href);
+        }
+    });
+}
+Quick.use(setRoute());
 export class QuickRouterLink extends HTMLElement {
     constructor() {
         super();
         const linkTo = this.getAttribute('to');
         const link = document.createElement('a');
         link.href = linkTo;
+        link.innerHTML = this.innerHTML;
         if (this.getAttribute("ref")) {
             link.id = this.getAttribute("ref");
         }
-        this.parentNode?.insertBefore(link, this);
+        document.getElementById("app")?.insertBefore(link, this);
         const children = Array.prototype.slice.call(this.children);
-        if (this.children) {
-            children.forEach(child => {
-                link.appendChild(child);
-                link.innerText === child.innerText;
-            });
-        }
-        ;
-        if (children.length === 0) {
+        if (this.innerHTML === "") {
             link.innerText = this.getAttribute("name");
         }
-        ;
+        // if (this.children) {
+        //     children.forEach(child => {
+        //         link.appendChild(child)
+        //     });
+        // };
         this.remove();
     }
 }
 window.customElements.define('quick-router-link', QuickRouterLink);
+Quick.use(QuickRouterLink);
 export class useRef {
     constructor() {
         const app = document.getElementById("app");

@@ -4,12 +4,12 @@
         "target": "esnext",
         "watch": true,
         "strict": true,
-        "outDir": "frontend/public/js",
+        "lib": ["dom", "ESNext"],
         "noImplicitAny": true,
         "baseUrl": ".",
         "paths": {
             "@/*": [
-                "frontend/public/js"
+                "frontend/public/js",
             ]
         },
     },
