@@ -1,8 +1,10 @@
-import Quick from "../instance/quick";
-import * as snabbdom from "../../node_modules/snabbdom/build/package/init";
-import { propsModule } from "../../node_modules/snabbdom/build/package/modules/props";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const quick_1 = require("../instance/quick");
+const snabbdom = require("../../node_modules/snabbdom/build/package/init");
+const props_1 = require("../../node_modules/snabbdom/build/package/modules/props");
 const eventlistenersModule = require('../../node_modules/snabbdom/build/package/modules/eventlisteners');
-const reconcile = snabbdom.init([propsModule, eventlistenersModule]);
+const reconcile = snabbdom.init([props_1.propsModule, eventlistenersModule]);
 let rootVNode;
 const render = (el, rootDomElement) => {
     // logic to put el into the rootDomElement
@@ -14,8 +16,7 @@ const render = (el, rootDomElement) => {
     // remember the VNode that reconcile returns
     rootVNode = reconcile(rootVNode, el);
 };
-Quick.__updater;
-any = (componentInstance) => {
+quick_1.default.__updater = (componentInstance) => {
     const oldVNode = componentInstance.__vNode;
     const newVNode = componentInstance.render();
     componentInstance.__vNode = reconcile(oldVNode, newVNode);
@@ -23,4 +24,4 @@ any = (componentInstance) => {
 const QuickDom = {
     render
 };
-export default QuickDom;
+exports.default = QuickDom;

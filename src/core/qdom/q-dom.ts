@@ -16,7 +16,7 @@ const render = (el, rootDomElement) => {
     rootVNode = reconcile(rootVNode, el);
   }
 
-Quick.__updater: any = (componentInstance) => {
+Quick.__updater = (componentInstance) => {
   
     const oldVNode = componentInstance.__vNode;
     const newVNode = componentInstance.render();
