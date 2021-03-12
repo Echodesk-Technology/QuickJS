@@ -4,8 +4,7 @@
         "target": "esnext",
         "watch": true,
         "strict": true,
-        "module": "commonjs",
-        "lib": ["dom", "esnext"],
+        "lib": ["dom", "es2019"],
         "noImplicitAny": true,
         "baseUrl": ".",
         "paths": {

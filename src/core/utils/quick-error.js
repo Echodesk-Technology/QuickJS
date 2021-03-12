@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class checkForError extends Error {
     constructor(error) {
         super(error);
@@ -14,4 +12,4 @@ class checkForError extends Error {
         throw new Error(error);
     }
 }
-exports.default = checkForError;
+export default checkForError;

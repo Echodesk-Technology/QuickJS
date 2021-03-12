@@ -1,7 +1,7 @@
 {
-  "name": "quick-js",
+  "name": "quickjs",
   "version": "1.0.0",
-  "description": "Quick.js is a JavaScript framework for building user interfaces.",
+  "description": "<br />\r <p align=\"center\">\r   <a href=\"https://echodesktechnology.com\">\r     <img src=\"https://res.cloudinary.com/serveryguken/image/upload/v1615188992/QuickJS/logo/quickjs-logo_wjx3dw.svg\" width=\"400\" height=\"200\"> \r   </a>\r </p>",
   "main": "server.js",
   "scripts": {
     "build": "webpack",
@@ -9,7 +9,7 @@
     "serve": "nodemon server.js"
   },
   "keywords": [],
-  "author": "Kehinde Akinsanya",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.13.10",

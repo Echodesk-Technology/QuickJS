@@ -1,11 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const quick_error_1 = require("../utils/quick-error");
-const snabbdom = require("../../node_modules/snabbdom/build/package/init");
-const props_1 = require("../../node_modules/snabbdom/build/package/modules/props");
-const reconcile = snabbdom.init([props_1.propsModule]);
+import QuickError from '../utils/quick-error';
+import * as snabbdom from "../../node_modules/snabbdom/build/package/init";
+import { propsModule } from "../../node_modules/snabbdom/build/package/modules/props";
+const reconcile = snabbdom.init([propsModule]);
 const root = document.getElementById('app');
-const h_1 = require("../../node_modules/snabbdom/build/package/h");
+import { h } from "../../node_modules/snabbdom/build/package/h";
 const init = require('snabbdom-to-html/init');
 const modules = require('snabbdom-to-html/modules');
 const toHTML = init([
@@ -82,7 +80,7 @@ const $listener = (target, type, fn, prevent) => {
         document.addEventListener(type, (e) => {
             e.preventDefault();
             if (target === "" || !target) {
-                new quick_error_1.default(`target not passed to listener`);
+                new QuickError(`target not passed to listener`);
             }
             if (e.target.id === target) {
                 e.preventDefault();
@@ -130,7 +128,7 @@ const createElement = (type, props = {}, ...children) => {
             dataProps[propKey] = props[propKey];
         }
     }
-    return h_1.h(type, { props }, children);
+    return h(type, { props }, children);
 };
 const __updater = (instance) => { return instance; };
 const $config = (env) => {
@@ -154,4 +152,4 @@ const Quick = {
 };
 Quick.use(Quick.$init);
 Quick.use(Quick.$listener);
-exports.default = Quick;
+export default Quick;
