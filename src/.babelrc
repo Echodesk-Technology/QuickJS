@@ -1,7 +1,7 @@
 {
     "plugins": [
       ["@babel/plugin-transform-react-jsx", {
-        "pragma": "Quick.createElement", // default pragma is React.createElement
+        "pragma": "QndReact.createElement", // default pragma is React.createElement
         "throwIfNamespace": false // defaults to true
       }]
     ]

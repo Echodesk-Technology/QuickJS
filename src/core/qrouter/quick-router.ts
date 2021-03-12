@@ -1,10 +1,21 @@
 declare global {
-    interface Window {routes: any}
+    interface Window { routes: any }
 }
 import Quick from '../instance/quick'
 import QuickError from '../utils/quick-error';
 
-
+const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+const getParams = match => {
+    if(match.result === undefined) {
+        new QuickError("missing required params")
+    }
+    const values = match.result.slice(1)
+    
+    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
+    return Object.entries(keys.map((key, i) => {
+        return [key, values[i]]
+    }))
+}
 export class QuickRouter {
     async useRoute(routes?: any, url?: any) {
         if (routes.length === 0) {
@@ -15,36 +26,41 @@ export class QuickRouter {
         const matches = routes.map((route: any) => {
             return {
                 route: route,
-                isMatch: location.pathname === route.path
+                result: location.pathname.match(pathToRegex(route.path))
             };
         });
-        let findMatch: any = matches.find((match: any) => match.isMatch);
+        let findMatch: any = matches.find((match: any) => match.result !== null);
         if (!findMatch) {
             findMatch = {
                 route: routes.find((route: any) => route.path === "/error"),
-                isMatch: true
+                result: [location.pathname]
             };
+            const view = new findMatch.route.view(getParams(findMatch));
+            Quick.view(await view.render());
         }
-        const view = new findMatch.route.view();
+        
+        const view = new findMatch.route.view(getParams(findMatch));
         Quick.view(await view.render());
+        this.setTitle(findMatch.route.title)
         return routes
     };
     getRoute(callback: Function) {
         const from = document.referrer
         const to = location.href
         const next: Function = Function
-        callback(to, from, next)
+        
 
-        // const route = [
-        //     {
-        //         fullPath:  location.href,
-        //         pathname:  location.pathname,
-        //         params: location.pathname.split('/')[2]
-        //     }
-        // ]
+        const route = [
+            {
+                fullPath:  location.href,
+                pathname:  location.pathname,
+                params: location.pathname.split('/')
+            }
+        ]
+        callback(route)
         return {
             to,
-            from
+            from,route
         }
     };
     createNavigation(routes: any) {
@@ -56,6 +72,15 @@ export class QuickRouter {
             }
         })
     }
+    setTitle(title) {
+        if(title === undefined) {
+            document.title = "Quick App"
+        }
+        else {
+            document.title = title
+        }
+        
+    }
 };
 
 
@@ -65,6 +90,7 @@ export class QuickRouter {
 
 export function createPopState(routes) {
     window.addEventListener("popstate", () => {
+        console.log("gg"); 
         QuickRouter.prototype.useRoute(routes)
     })
 }
@@ -75,6 +101,9 @@ export class QuickRouterLink extends HTMLElement {
     constructor() {
         super();
         const linkTo = this.getAttribute('to');
+        if (!linkTo) {
+            new QuickError(`to attribute must be specified to route, quick-link returned ${linkTo}`)
+        }
         const link: any = document.createElement('a');
         link.href = linkTo;
         link.innerHTML = this.innerHTML
@@ -84,7 +113,7 @@ export class QuickRouterLink extends HTMLElement {
         if (this.getAttribute("id")) {
             link.id = this.getAttribute("id");
         }
-        if(this.getAttribute("download")) {
+        if (this.getAttribute("download")) {
             link.download = this.getAttribute("download")
         }
         this.parentNode?.insertBefore(link, this);

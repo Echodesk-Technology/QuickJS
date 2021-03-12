@@ -4,14 +4,15 @@
   "description": "<br />\r <p align=\"center\">\r   <a href=\"https://echodesktechnology.com\">\r     <img src=\"https://res.cloudinary.com/serveryguken/image/upload/v1615188992/QuickJS/logo/quickjs-logo_wjx3dw.svg\" width=\"400\" height=\"200\"> \r   </a>\r </p>",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
     "build": "webpack",
-    "start": "node server.js"
+    "start": "node server.js",
+    "serve": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.13.10",
     "@sentry/browser": "^6.2.1",
     "@sentry/tracing": "^6.2.1",
     "babel-plugin-prismjs": "^2.0.1",
@@ -19,12 +20,23 @@
     "nodemon": "^2.0.7",
     "prismjs": "^1.23.0",
     "raven-js": "^3.27.2",
+    "serve-favicon": "^2.5.0",
+    "snabbdom": "^2.1.0",
     "watch": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-react-jsx": "^7.12.17",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.1.2",
     "eslint": "^7.21.0",
     "javascript-obfuscator": "^2.11.0",
-    "webpack": "^5.24.3",
+    "multi-loader": "^0.1.0",
+    "node-hot-loader": "^1.21.3",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.24.4",
     "webpack-cli": "^4.5.0",
     "webpack-obfuscator": "^3.3.0"
   },

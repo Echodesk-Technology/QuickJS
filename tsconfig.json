@@ -4,7 +4,7 @@
         "target": "esnext",
         "watch": true,
         "strict": true,
-        "lib": ["dom", "ESNext"],
+        "lib": ["dom", "es2019"],
         "noImplicitAny": true,
         "baseUrl": ".",
         "paths": {
