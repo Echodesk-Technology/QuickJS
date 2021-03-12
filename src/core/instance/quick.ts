@@ -18,15 +18,6 @@ const toHTML = init([
 declare global {
     interface Window { state: any }
 }
-// interface IQuick {
-//     readonly $el: Element,
-// }
-// function watchEffect(fn:P any) {
-//     this.activeEffect = fn
-//     fn()
-//     this.activeEffect = null
-// }
-
 class Dep {
     subscribers = new Set()
     depend(activeEffect?) {
@@ -89,6 +80,9 @@ const $listener = (target, type, fn, prevent: boolean) => {
         }
     });
 
+    document.addEventListener(type, (e: any) => {
+        fn()
+    })
     if (prevent) {
         document.addEventListener(type, (e: any) => {
             e.preventDefault();

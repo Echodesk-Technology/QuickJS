@@ -32,13 +32,12 @@ export class QuickRouter {
         let findMatch: any = matches.find((match: any) => match.result !== null);
         if (!findMatch) {
             findMatch = {
-                route: routes.find((route: any) => route.path === "/error"),
+                route: routes.find((route: any) => route.path === "/error" || route.path === "/"),
                 result: [location.pathname]
             };
             const view = new findMatch.route.view(getParams(findMatch));
             Quick.view(await view.render());
         }
-        
         const view = new findMatch.route.view(getParams(findMatch));
         Quick.view(await view.render());
         this.setTitle(findMatch.route.title)

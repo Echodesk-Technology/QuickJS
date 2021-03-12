@@ -1,3 +1,39 @@
-.counter-con button {
-    margin-right: 20px; 
+.container {
+    margin-top: 50px;
+}
+
+.quick-logo {
+    width: 200px;
+}
+
+.logo-con {
+    text-align: center;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome {
+    text-align: center;
+}
+
+.sec {
+    background-color: #cde6f5;
+    padding: 10px;
+    width: 400px;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex a {
+    margin-right: 10px;
 }

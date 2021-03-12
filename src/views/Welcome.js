@@ -1,6 +1,6 @@
 import Quick from "../core/instance/quick";
 const Welcome = (name) => (
-    <p>Welcome to your {name} App</p>
+    <h1>Welcome to your {{name}} App</h1>
 )
 
 export default Welcome

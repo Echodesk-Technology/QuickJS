@@ -8,19 +8,26 @@ export default class App extends Quick.Component {
     }
     render() {
         return (
-            <div>
-                <h1>Home with another comp</h1>
-                <Welcome name={"Quick.js"} />
+            <div class="container">
+                <div class="logo-con">
+                    <img class="quick-logo" src="https://res.cloudinary.com/serveryguken/image/upload/v1615188992/QuickJS/logo/quickjs-logo_wjx3dw.svg" />
+                </div>
+                <div class="welcome">
+                    <Welcome name={"Quick.js"} />
+                </div>
+                <div class="sec">
+                    <h4>Check out Routes</h4>
+                    <div class="flex">
+                        <quick-router-link to="/">Home</quick-router-link>
+                        <quick-router-link to="/about">About</quick-router-link>
+                    </div>
+                </div>
             </div>
         )
     }
 
 }
 
-const state = ({
-    count: 0,
-    todos: ["buy", "test", "redeem"]
-})
 
 
 
