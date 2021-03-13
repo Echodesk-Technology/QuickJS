@@ -4,7 +4,7 @@ const router = new QuickRouter;
 import App from "../../src/views/App"
 import About from "../../src/views/About"
 import Counter from "../../src/views/Counter"
-// import NotFound from "../../src/views/Notfound"
+import NotFound from "../../src/views/Notfound"
 const  routes = [
     {
         path: '/',
@@ -22,11 +22,11 @@ const  routes = [
         view: Counter,
         title: "Counter",
     },
-    // {
-    //     path: '/error',
-    //     view: NotFound,
-    //     title: "Page Not Found",
-    // },
+    {
+        path: '/error',
+        view: NotFound,
+        title: "Page Not Found",
+    },
 ];
 
 Quick.use(router.useRoute(routes));

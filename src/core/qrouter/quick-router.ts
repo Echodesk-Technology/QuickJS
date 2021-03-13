@@ -4,14 +4,14 @@ declare global {
 import Quick from '../instance/quick'
 import QuickError from '../utils/quick-error';
 
-const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
-const getParams = match => {
+const pathToRegex = (path: any )=> new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+const getParams = (match: any )=> {
     if(match.result === undefined) {
         new QuickError("missing required params")
     }
     const values = match.result.slice(1)
     
-    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
+    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map((result: any) => result[1]);
     return Object.entries(keys.map((key, i) => {
         return [key, values[i]]
     }))
@@ -72,7 +72,7 @@ export class QuickRouter {
             }
         })
     }
-    setTitle(title) {
+    setTitle(title: any) {
         if(title === undefined) {
             document.title = "Quick App"
         }
@@ -88,9 +88,8 @@ export class QuickRouter {
 
 
 
-export function createPopState(routes) {
+export function createPopState(routes : any) {
     window.addEventListener("popstate", () => {
-        console.log("gg"); 
         QuickRouter.prototype.useRoute(routes)
     })
 }
@@ -100,32 +99,43 @@ export function createPopState(routes) {
 export class QuickRouterLink extends HTMLElement {
     constructor() {
         super();
+        
+        const t: any = this
+        // t.attributes.forEach(attr => {
+        //     console.log(attr);
+            
+        // })
         const linkTo = this.getAttribute('to');
         if (!linkTo) {
             new QuickError(`to attribute must be specified to route, quick-link returned ${linkTo}`)
         }
-        const link: any = document.createElement('a');
-        link.href = linkTo;
-        link.innerHTML = this.innerHTML
+        const customTag: any = document.createElement('a');
+        customTag.href = linkTo;
+        
+        customTag.innerHTML = this.innerHTML
         if (this.getAttribute("ref")) {
-            link.id = this.getAttribute("ref");
+            customTag.id = this.getAttribute("ref");
         }
         if (this.getAttribute("id")) {
-            link.id = this.getAttribute("id");
+            customTag.id = this.getAttribute("id");
         }
-        if (this.getAttribute("download")) {
-            link.download = this.getAttribute("download")
-        }
-        this.parentNode?.insertBefore(link, this);
+        
+        this.parentNode?.insertBefore(customTag, this);
         const children = Array.prototype.slice.call(this.children);
         if (this.innerHTML === "") {
-            link.innerText = this.getAttribute("name")
+            customTag.innerText = this.getAttribute("name")
         }
-        // if (this.children) {
-        //     children.forEach(child => {
-        //         link.appendChild(child)
-        //     });
-        // };
+        
+        for (var i = 0; i < this.attributes.length; i++) {
+            const attribI = this.attributes[i];
+            for (var a = 0; a < this.attributes.length; a++) {
+                const attribA = this.attributes[i];
+                if(attribI.name === "to") {}
+               else {
+                customTag.setAttribute(`${attribI.name}`, `${attribI.value}`)
+               }
+            }
+        }
         this.remove();
     }
 }
@@ -142,4 +152,3 @@ export class useRef {
         })
     }
 }
-

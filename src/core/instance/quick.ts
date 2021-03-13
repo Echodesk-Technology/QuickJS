@@ -1,12 +1,11 @@
 import QuickError from '../utils/quick-error';
 import * as snabbdom from "../../node_modules/snabbdom/build/package/init"
 import { propsModule } from "../../node_modules/snabbdom/build/package/modules/props"
-
-
 const reconcile = snabbdom.init([propsModule]);
 
+
 const root = document.getElementById('app')
-import { h } from "../../node_modules/snabbdom/build/package/h"
+import { h } from '../../node_modules/snabbdom/build/package/h';
 const init = require('snabbdom-to-html/init')
 const modules = require('snabbdom-to-html/modules')
 const toHTML = init([
@@ -29,7 +28,7 @@ declare global {
 
 class Dep {
     subscribers = new Set()
-    depend(activeEffect?) {
+    depend(activeEffect?: any) {
         if (activeEffect) this.subscribers.add(activeEffect)
     }
     notify() {
@@ -47,7 +46,7 @@ class Component {
 
     componentDidMount() { }
 
-    setState(partialState) {
+    setState(partialState: any) {
         const _this: any = this
         _this.state = {
             ..._this.state,
@@ -56,14 +55,14 @@ class Component {
         Quick.__updater(_this);
     }
 
-    render(el, r?: any) {
+    render(el: any, r?: any) {
         reconcile(root, el);
     }
 }
 const _pt: any = Component.prototype
 _pt.isQuickClassComponent = true;
 
-const render = async (el, r?: any) => {
+const render = async (el: any, r?: any) => {
     reconcile(root, el);
 };
 
@@ -72,11 +71,10 @@ const $init = () => {
     fav.href = "/favicon.ico"
     fav.rel = "icon"
     const h = document.getElementsByTagName("head")
-    console.log(h);
 };
 
 
-const $listener = (target, type, fn, prevent: boolean) => {
+const $listener = (target: any, type: any, fn: any, prevent: boolean) => {
     document.addEventListener(type, (e) => {
         if (e.target.id === target) {
             fn()
@@ -122,7 +120,7 @@ const view = (view: any) => {
     document.querySelector("#app").innerHTML = renderViewtoHTML
 };
 
-const createElement = (type, props = {}, ...children: any) => {
+const createElement = (type: any, props = {}, ...children: any) => {
     children = children.flat();
     if (type.prototype && type.prototype.isQndReactClassComponent) {
         const componentInstance = new type(props);
@@ -147,6 +145,8 @@ const createElement = (type, props = {}, ...children: any) => {
           dataProps[propKey] = props[propKey];
         }
       }
+      console.log(h(type, { props }, children));
+      
     return h(type, { props }, children);
 };
 

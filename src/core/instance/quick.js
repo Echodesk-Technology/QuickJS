@@ -1,9 +1,11 @@
-import QuickError from '../utils/quick-error';
-import * as snabbdom from "../../node_modules/snabbdom/build/package/init";
-import { propsModule } from "../../node_modules/snabbdom/build/package/modules/props";
-const reconcile = snabbdom.init([propsModule]);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const quick_error_1 = require("../utils/quick-error");
+const snabbdom = require("../../node_modules/snabbdom/build/package/init");
+const props_1 = require("../../node_modules/snabbdom/build/package/modules/props");
+const reconcile = snabbdom.init([props_1.propsModule]);
 const root = document.getElementById('app');
-import { h } from "../../node_modules/snabbdom/build/package/h";
+const h_1 = require("../../node_modules/snabbdom/build/package/h");
 const init = require('snabbdom-to-html/init');
 const modules = require('snabbdom-to-html/modules');
 const toHTML = init([
@@ -62,7 +64,6 @@ const $init = () => {
     fav.href = "/favicon.ico";
     fav.rel = "icon";
     const h = document.getElementsByTagName("head");
-    console.log(h);
 };
 const $listener = (target, type, fn, prevent) => {
     document.addEventListener(type, (e) => {
@@ -80,7 +81,7 @@ const $listener = (target, type, fn, prevent) => {
         document.addEventListener(type, (e) => {
             e.preventDefault();
             if (target === "" || !target) {
-                new QuickError(`target not passed to listener`);
+                new quick_error_1.default(`target not passed to listener`);
             }
             if (e.target.id === target) {
                 e.preventDefault();
@@ -128,7 +129,8 @@ const createElement = (type, props = {}, ...children) => {
             dataProps[propKey] = props[propKey];
         }
     }
-    return h(type, { props }, children);
+    console.log(h_1.h(type, { props }, children));
+    return h_1.h(type, { props }, children);
 };
 const __updater = (instance) => { return instance; };
 const $config = (env) => {
@@ -152,4 +154,4 @@ const Quick = {
 };
 Quick.use(Quick.$init);
 Quick.use(Quick.$listener);
-export default Quick;
+exports.default = Quick;
